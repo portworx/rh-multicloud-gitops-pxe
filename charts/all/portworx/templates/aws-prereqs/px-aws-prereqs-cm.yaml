@@ -62,7 +62,17 @@ data:
     else
       echo "Configuring for Portworx/Red Hat Multicloud GitOps Pattern."
     fi
-
+    
+    # Ensure there are a minimum of three worker nodes in the cluster
+    NUM_WORKERS=$(oc get node -l 'node-role.kubernetes.io/worker=' -o name | wc -l)
+    if [ $NUM_WORKERS -lt 3 ];
+    then
+      echo "Only $NUM_WORKERS worker nodes detected - minimum required is three."
+      exit 1
+    else
+      echo "Found $NUM_WORKERS worker nodes - configuring..."
+    fi
+    
     # Get the list of worker nodes in the cluster
     WORKERS=$(oc get node -l 'node-role.kubernetes.io/worker=' -o name)
 
