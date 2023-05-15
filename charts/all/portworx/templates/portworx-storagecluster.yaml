@@ -18,6 +18,7 @@ metadata:
   name: {{ template "px.clusterName" . }}
   namespace: {{ $namespace }}
   annotations:
+    argocd.argoproj.io/sync-wave: "3"
     {{- if eq $.Values.global.clusterPlatform "AWS" }}
     portworx.io/is-eks: "true"
     {{- end }}
