@@ -19,13 +19,6 @@ spec:
       containers:
       - name: postgres
         image: postgres:14.1-alpine
-        command:
-        - /bin/bash
-        - -c
-        - |
-          createdb -U admin sampledb
-          pgbench -U admin -i -s 70 sampledb
-          pgbench -U admin -c 1 -j 1 -T 120
         envFrom:
           - configMapRef:
               name: px-demo-postgres-config
