@@ -26,7 +26,7 @@ spec:
           while [ 1 ];
           do
             pg_isready
-            if [ "$?" -eq "0" ]
+            if [ "$?" -eq "0" ]; then
               echo "Postgres ready for connections"
               createdb -U admin sampledb
               pgbench -U admin -i -s 70 sampledb
