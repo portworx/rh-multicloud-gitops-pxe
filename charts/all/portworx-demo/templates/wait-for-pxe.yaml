@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  name: job-wait-for-portworx
+  namespace: {{ .Values.vmNamespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - image: quay.io/hybridcloudpatterns/utility-container
+        command:
+        - /bin/bash
+        - -c
+        - |
+          while [ 1 ];
+          do
+            rwx_exist=$(oc get sc {{ .Values.rwxStorageClass }} | grep {{ .Values.rwxStorageClass | wc -l)
+            if [ "$rwx_exist" -gt "0" ]; then
+              echo "Node is ready, exiting"
+              exit 0
+            fi
+            echo "Portworx is not yet ready, waiting"
+            sleep 15
+          done
+        name: wait-for-portworx-ready
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: portworx-demo-sa 
+      serviceAccountName: portworx-demo-sa
+      terminationGracePeriodSeconds: 600 

@@ -13,6 +13,7 @@ clusterGroup:
     - hello-world
     - golang-external-secrets
     - portworx
+    - portworx-demo
 
   subscriptions:
 

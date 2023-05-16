@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: portworx-demo-clusterrole
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-15"
+rules:
+  - apiGroups: ['']
+    resources: ['storageclasses']
+    verbs: ['get', 'list']
