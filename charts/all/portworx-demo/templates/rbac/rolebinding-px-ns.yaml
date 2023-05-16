@@ -9,7 +9,7 @@ subjects:
 - kind: ServiceAccount
   name: portworx-demo-sa
   namespace: {{ .Values.pxnamespace }}
-  apiGroup: ""
+  apiGroup: "*"
 roleRef:
   kind: Role
   name: portworx-demo-px-ns-role

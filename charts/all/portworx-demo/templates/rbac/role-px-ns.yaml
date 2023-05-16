@@ -8,5 +8,5 @@ metadata:
   name: portworx-demo-px-ns-role
 rules:
 - apiGroups: ["*"]
-  resources: ['pods', 'storageclusters']
-  verbs: ['get', 'list']
+  resources: ['pods','storageclusters']
+  verbs: ['get','list']
