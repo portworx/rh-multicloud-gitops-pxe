@@ -22,7 +22,7 @@ spec:
             stc_status=$(oc get stc -n {{ .Values.pxnamespace }} | grep Online | wc -l)
           done
           echo "Portworx storagecluster online, waiting for all containers to start"
-          num_px_pods=$(oc get pod -l name=portworx -n {{ .Values.pxnamespace }} | wc -l)
+          num_px_pods=$(oc get pod -l name=portworx -n {{ .Values.pxnamespace }} --no-headers | wc -l)
           while [ 1 ];
           do
             num_px_pods_ready=$(oc get pod -l name=portworx -n {{ .Values.pxnamespace }} |grep -P '\s+([1-9]+[\d]*)\/\1\s+' | wc -l)
