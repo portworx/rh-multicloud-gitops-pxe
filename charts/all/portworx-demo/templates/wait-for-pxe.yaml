@@ -16,7 +16,7 @@ spec:
         - |
           while [ 1 ];
           do
-            rwx_exist=$(oc get sc {{ .Values.rwxStorageClass }} | grep {{ .Values.rwxStorageClass | wc -l)
+            rwx_exist=$(oc get sc {{ .Values.rwxStorageClass }} | grep {{ .Values.rwxStorageClass }} | wc -l)
             if [ "$rwx_exist" -gt "0" ]; then
               echo "Node is ready, exiting"
               exit 0
