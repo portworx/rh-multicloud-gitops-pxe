@@ -5,7 +5,7 @@ metadata:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-15"
   namespace: {{ .Values.pxnamespace }} 
-  name: portworx-demo-px-ns-role
+  name: portworx-demo-clusterrole
 rules:
 - apiGroups: ["*"]
   resources: ['pods','storageclusters']
