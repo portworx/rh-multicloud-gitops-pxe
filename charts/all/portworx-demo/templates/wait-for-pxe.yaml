@@ -4,7 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   name: job-wait-for-portworx
-  namespace: {{ .Values.vmNamespace }}
+  namespace: {{ .Values.namespace }}
 spec:
   template:
     spec:
@@ -14,14 +14,15 @@ spec:
         - /bin/bash
         - -c
         - |
+          num_px_pods=$(oc get pod -l name=portworx -n {{ .Values.namespace }} | wc -l)
           while [ 1 ];
           do
-            rwx_exist=$(oc get sc {{ .Values.rwxStorageClass }} | grep {{ .Values.rwxStorageClass }} | wc -l)
-            if [ "$rwx_exist" -gt "0" ]; then
-              echo "Node is ready, exiting"
+            num_px_pods_ready=$(oc get pod -l name=portworx -n {{ .Values.namespace }} |grep -P '\s+([1-9]+[\d]*)\/\1\s+' | wc -l)
+            if [ "$num_px_pods_ready" -eq "$num_px_pods" ]; then
+              echo "Portworx is ready, continuing."
               exit 0
             fi
-            echo "Portworx is not yet ready, waiting"
+            echo "Portworx is not yet ready, waiting."
             sleep 15
           done
         name: wait-for-portworx-ready
