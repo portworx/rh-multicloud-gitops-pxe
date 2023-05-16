@@ -9,8 +9,6 @@ clusterGroup:
   isHubCluster: false
 
   namespaces:
-    - config-demo
-    - hello-world
     - golang-external-secrets
     - portworx
     - portworx-demo
@@ -25,9 +23,8 @@ clusterGroup:
 
   projects:
     - eso
-    - config-demo
-    - hello-world
     - portworx
+    - portworx-demo
 
   applications:
     golang-external-secrets:
@@ -36,23 +33,17 @@ clusterGroup:
       project: eso
       path: common/golang-external-secrets
 
-    config-demo:
-      name: config-demo
-      namespace: config-demo
-      project: config-demo
-      path: charts/all/config-demo
-
-    hello-world:
-      name: hello-world
-      namespace: hello-world
-      project: hello-world
-      path: charts/all/hello-world
-
     portworx:
       name: portworx
       namespace: portworx
       project: portworx
       path: charts/all/portworx
+
+    portworx-demo:
+      name: portworx-demo
+      namespace: portworx-demo
+      project: portworx
+      path: charts/all/portworx-demo
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
@@ -61,12 +52,12 @@ clusterGroup:
     # imagePullPolicy is set to always: imperative.imagePullPolicy
     # For additional overrides that apply to the jobs, please refer to
     # https://hybrid-cloud-patterns.io/imperative-actions/#additional-job-customizations
-    jobs:
-    - name: hello-world
+    #jobs:
+    #- name: hello-world
       # ansible playbook to be run
-      playbook: common/ansible/playbooks/hello-world/hello-world.yaml
+      #playbook: common/ansible/playbooks/hello-world/hello-world.yaml
       # per playbook timeout in seconds
-      timeout: 234
+      #timeout: 234
       # verbosity: "-v"
 
 #  To have apps in multiple flavors, use namespaces and use helm overrides as appropriate

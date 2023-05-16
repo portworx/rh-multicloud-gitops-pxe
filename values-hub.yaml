@@ -6,8 +6,6 @@ clusterGroup:
     - open-cluster-management
     - vault
     - golang-external-secrets
-    - config-demo
-    - hello-world
     - portworx
     - portworx-demo
 
@@ -26,8 +24,6 @@ clusterGroup:
 
   projects:
     - hub
-    - config-demo
-    - hello-world
     - portworx
     - portworx-demo
 
@@ -55,18 +51,6 @@ clusterGroup:
       project: hub
       path: common/golang-external-secrets
 
-    config-demo:
-      name: config-demo
-      namespace: config-demo
-      project: config-demo
-      path: charts/all/config-demo
-
-    hello-world:
-      name: hello-world
-      namespace: hello-world
-      project: hello-world
-      path: charts/all/hello-world
-
     portworx:
       name: portworx
       namespace: portworx
@@ -86,12 +70,12 @@ clusterGroup:
     # imagePullPolicy is set to always: imperative.imagePullPolicy
     # For additional overrides that apply to the jobs, please refer to
     # https://hybrid-cloud-patterns.io/imperative-actions/#additional-job-customizations
-    jobs:
-    - name: hello-world
+    #jobs:
+    #- name: hello-world
       # ansible playbook to be run
-      playbook: common/ansible/playbooks/hello-world/hello-world.yaml
+      #playbook: common/ansible/playbooks/hello-world/hello-world.yaml
       # per playbook timeout in seconds
-      timeout: 234
+      #timeout: 234
       # verbosity: "-v"
 
   managedClusterGroups:
