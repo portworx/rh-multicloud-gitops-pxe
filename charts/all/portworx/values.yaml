@@ -13,7 +13,7 @@ storage:
                                     # Defaults to use -A switch.
                                     # To have drives automatically created specify the drive spec. For Eg: "type=gp2,size=150" or "type=io1,size=100,iops=2000"
   journalDevice:
-  maxStorageNodesPerZone: "1"	    # WARNING: If you are running in a cloud region with two or less Availability Zones, you must set this to 2 (2 AZs) or 3 (1 AZ) for a minimum configuration (3-node cluster). This is NOT a recommended configuration as it could lead to data loss - Portworx recommends that storage nodes are split evenly across AZs for maximum storage resiliency.
+  maxStorageNodesPerZone: "2"	    # WARNING: If you are running in a cloud region with two or less Availability Zones, you must set this to 2 (2 AZs) or 3 (1 AZ) for a minimum configuration (3-node cluster). This is NOT a recommended configuration as it could lead to data loss - Portworx recommends that storage nodes are split evenly across AZs for maximum storage resiliency.
   kvdbDrives: "type=gp2,size=150"
 
 network:
