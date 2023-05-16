@@ -11,6 +11,6 @@ subjects:
   namespace: {{ .Values.namespace }}
   apiGroup: ""
 roleRef:
-  kind: Role
+  kind: ClusterRole
   name: portworx-demo-clusterrole
   apiGroup: rbac.authorization.k8s.io
