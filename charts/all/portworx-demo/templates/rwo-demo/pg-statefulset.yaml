@@ -19,6 +19,23 @@ spec:
       containers:
       - name: postgres
         image: postgres:14.1-alpine
+        command:
+        - /bin/bash
+        - -c
+        - |
+          while [ 1 ];
+          do
+            pg_isready
+            if [ "$?" -eq "0" ]
+              echo "Postgres ready for connections"
+              createdb -U admin sampledb
+              pgbench -U admin -i -s 70 sampledb
+              pgbench -U admin -c 1 -j 1 -T 60
+              exit 0
+            fi
+            echo "Postgres not ready for connection yet"
+            sleep 10
+          done
         envFrom:
           - configMapRef:
               name: px-demo-postgres-config
