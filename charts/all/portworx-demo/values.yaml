@@ -1,0 +1,9 @@
+---
+
+rwxStorageClass: px-csi-db-shared
+
+rwoStorageClass: px-csi-db
+
+namespace: portworx-demo
+
+pxnamespace: portworx
