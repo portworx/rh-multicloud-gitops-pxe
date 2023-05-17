@@ -16,6 +16,7 @@ spec:
       labels:
         app: postgres
     spec:
+      serviceAccountName: portworx-demo-sa
       containers:
       - name: pgbench-sidecar
         image: postgres:14.1-alpine
@@ -44,3 +45,4 @@ spec:
       - name: postgresdb
         persistentVolumeClaim:
           claimName: rwo-demo-postgres-data
+
