@@ -30,7 +30,7 @@ spec:
           pgbench -U admin -i -s 30 -h 127.0.0.1 sampledb
           sleep 10
           pgbench -U admin -c 1 -j 1 -T 60 -h 127.0.0.1 sampledb
-          sleep 3600
+          sleep infinity
         envFrom:
           - configMapRef:
               name: px-demo-postgres-config
