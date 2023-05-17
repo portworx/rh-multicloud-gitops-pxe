@@ -23,7 +23,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          pg_isready -U admin -d sampledb -h 127.0.0.1
+          pg_isready -U admin -h 127.0.0.1
           echo $?
       - name: postgres
         image: postgres:14.1-alpine
