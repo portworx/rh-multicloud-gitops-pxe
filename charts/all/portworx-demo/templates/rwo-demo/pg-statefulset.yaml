@@ -30,6 +30,9 @@ spec:
           pgbench -U admin -i -s 70 sampledb
           pgbench -U admin -c 1 -j 1 -T 60
           echo $?
+        envFrom:
+          - configMapRef:
+              name: px-demo-postgres-config
       - name: postgres
         image: postgres:14.1-alpine
         envFrom:
