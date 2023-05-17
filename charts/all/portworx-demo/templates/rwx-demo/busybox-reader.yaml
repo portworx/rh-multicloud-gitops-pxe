@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "9"
+  name: shared-demo-reader
+  namespace: {{ .Values.namespace }}
+spec:
+  volumes:
+  - name: shared-vol
+    persistentVolumeClaim:
+      claimName: rwx-demo-shared-data
+  terminationGracePeriodSeconds: 5
+  containers:
+  - image: busybox
+    imagePullPolicy: Always
+    name: busybox-reader
+    volumeMounts:
+    - name: shared-vol
+      mountPath: "/mnt"
+    command:
+      - sh
+    args:
+      - -c
+      - |
+        sleep 120
+        tail -f /mnt/shared.log
+        sleep infinity
