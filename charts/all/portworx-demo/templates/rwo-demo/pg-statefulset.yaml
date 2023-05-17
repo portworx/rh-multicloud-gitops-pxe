@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  name: postgres
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: "postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: pgbench-sidecar
+        image: postgres:14.1-alpine
+        command:
+        - /bin/bash
+        - -c
+        - |
+          sleep 30
+          pg_isready -h 127.0.0.1 -U admin
+          createdb -U admin sampledb -h 127.0.0.1
+          pgbench -U admin -i -s 30 -h 127.0.0.1 sampledb
+          sleep 10
+          pgbench -U admin -c 1 -j 1 -T 60 -h 127.0.0.1 sampledb
+          sleep infinity
+        envFrom:
+          - configMapRef:
+              name: px-demo-postgres-config
+      - name: postgres
+        image: postgres:14.1-alpine
+        envFrom:
+          - configMapRef:
+              name: px-demo-postgres-config
+        ports:
+        - containerPort: 5432
+          name: postgresdb
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgresdb
+      volumes:
+      - name: postgresdb
+        persistentVolumeClaim:
+          claimName: rwo-demo-postgres-data
+

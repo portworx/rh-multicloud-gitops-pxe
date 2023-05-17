@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: rwo-demo-postgres-data
+spec:
+  storageClassName: {{ .Values.rwoStorageClass }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

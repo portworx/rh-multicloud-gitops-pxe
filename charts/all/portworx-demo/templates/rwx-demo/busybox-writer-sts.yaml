@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "8"
+  labels:
+    app: shared-demo
+  name: shared-busybox-demo
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: shared-demo
+  template:
+    metadata:
+      labels:
+        app: shared-demo
+    spec:
+      volumes:
+      - name: shared-vol
+        persistentVolumeClaim:
+          claimName: rwx-demo-shared-data
+      terminationGracePeriodSeconds: 5
+      containers:
+      - image: busybox
+        name: busybox-writer
+        volumeMounts:
+        - name: shared-vol
+          mountPath: "/mnt"
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            i=0
+            echo -e ""time":$(date +%H:%M:%S),"hostname":$(hostname) Begin writing to shared logfile"
+            until [ "$i" -eq "120" ]; do
+              echo -e ""time":$(date +%H:%M:%S),"hostname":$(hostname) writing to shared vol" >> /mnt/shared.log
+              sleep 1
+              i=$((i+1))
+            done
+            echo -e ""time":$(date +%H:%M:%S),"hostname":$(hostname) completed writing to shared logfile"
+            sleep infinity

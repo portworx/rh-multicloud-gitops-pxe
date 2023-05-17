@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "7"
+  name: rwx-demo-shared-data
+spec:
+  storageClassName: {{ .Values.rwxStorageClass }}
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
