@@ -28,8 +28,9 @@ spec:
           pg_isready -h 127.0.0.1 -U admin
           createdb -U admin sampledb -h 127.0.0.1
           pgbench -U admin -i -s 30 -h 127.0.0.1 sampledb
+          sleep 10
           pgbench -U admin -c 1 -j 1 -T 60 -h 127.0.0.1 sampledb
-          echo $?
+          sleep 3600
         envFrom:
           - configMapRef:
               name: px-demo-postgres-config
