@@ -17,6 +17,14 @@ spec:
         app: postgres
     spec:
       containers:
+      - name: pgbench-sidecar
+        image: postgres:14.1-alpine
+        command:
+        - /bin/bash
+        - -c
+        - |
+          pg_isready -U admin -d sampledb -h 127.0.0.1
+          echo $?
       - name: postgres
         image: postgres:14.1-alpine
         envFrom:
@@ -32,11 +40,3 @@ spec:
       - name: postgresdb
         persistentVolumeClaim:
           claimName: rwo-demo-postgres-data
-      - name: pgbench-sidecar
-        image: postgres:14.1-alpine
-        command:
-        - /bin/bash
-        - -c
-        - |
-          pg_isready -U admin -d sampledb -h 127.0.0.1
-          echo $?
