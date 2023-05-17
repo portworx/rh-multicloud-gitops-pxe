@@ -23,6 +23,6 @@ spec:
     args:
       - -c
       - |
+        echo "Sleeping for 120 seconds for writers to populate file"
         sleep 120
         tail -f /mnt/shared.log
-        sleep infinity
