@@ -26,9 +26,9 @@ spec:
         - |
           sleep 30
           pg_isready -h 127.0.0.1
-          createdb -U admin sampledb
-          pgbench -U admin -i -s 70 sampledb
-          pgbench -U admin -c 1 -j 1 -T 60
+          createdb -U admin sampledb -h 127.0.0.1
+          pgbench -U admin -i -s 70 sampledb -h 127.0.0.1
+          pgbench -U admin -c 1 -j 1 -T 60 -h 127.0.0.1
           echo $?
         envFrom:
           - configMapRef:
