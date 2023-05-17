@@ -23,9 +23,9 @@ spec:
           claimName: rwx-demo-shared-data
       terminationGracePeriodSeconds: 5
       containers:
-      - image: busybox-writer
+      - image: busybox
         imagePullPolicy: Always
-        name: busybox
+        name: busybox-writer
         volumeMounts:
         - name: shared-vol
           mountPath: "/mnt"
