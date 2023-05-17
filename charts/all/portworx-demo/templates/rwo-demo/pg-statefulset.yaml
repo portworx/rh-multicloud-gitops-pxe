@@ -25,9 +25,9 @@ spec:
         - -c
         - |
           sleep 30
-          pg_isready -h 127.0.0.1
+          pg_isready -h 127.0.0.1 -U admin
           createdb -U admin sampledb -h 127.0.0.1
-          pgbench -U admin -i -s 70 sampledb -h 127.0.0.1
+          pgbench -U admin -i -s 30 sampledb -h 127.0.0.1
           pgbench -U admin -c 1 -j 1 -T 60 -h 127.0.0.1
           echo $?
         envFrom:
