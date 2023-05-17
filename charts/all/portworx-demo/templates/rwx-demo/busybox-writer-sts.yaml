@@ -34,9 +34,11 @@ spec:
           - -c
           - |
             i=0
+            echo "Begin writing to shared logfile"
             until [ "$i" -eq "120" ]; do
               echo -e ""time":$(date +%H:%M:%S),"hostname":$(hostname) writing to shared vol" >> /mnt/shared.log
               sleep 1
               i=$((i+1))
             done
+            echo -e "$(hostname) completed writing to shared logfile"
             sleep infinity
