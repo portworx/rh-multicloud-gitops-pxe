@@ -1,9 +1,6 @@
 global:
   clusterPlatform: AWS
 
-cloudProvider:
-  storageClass: default-rwo
-
 namespace: portworx              # Recommended namespace for install is 'portworx', change to desired namespace if default is unacceptable
 
 storage:
