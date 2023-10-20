@@ -1,9 +1,6 @@
 global:
   clusterPlatform: AWS
 
-cloudProvider:
-  storageClass: default-rwo
-
 namespace: portworx              # Recommended namespace for install is 'portworx', change to desired namespace if default is unacceptable
 
 storage:
@@ -41,7 +38,7 @@ deleteStrategy: UninstallAndWipe    # Options are Uninstall and UninstallAndWipe
 # You can determine the correct versions at the following URL: https://install.portworx.com/$PXVER/version?kbver=$KBVER
 versions:
   #operator: "1.10.4"  # unless a specific operator from OperatorHub is necessary, leave this commented
-  enterprise: "2.13.4" # This will be the "version" string
-  ociMon: "2.13.4" # This will be the "version" string
-  autoPilot: "1.3.7" # This will be the "portworx/autopilot" version string
-  stork: "23.4.0" # This will be the "openstorage/stork" version string
+  enterprise: "3.0.3" # This will be the "version" string
+  ociMon: "3.0.3" # This will be the "version" string
+  autoPilot: "1.3.11" # This will be the "portworx/autopilot" version string
+  stork: "23.8.0" # This will be the "openstorage/stork" version string
